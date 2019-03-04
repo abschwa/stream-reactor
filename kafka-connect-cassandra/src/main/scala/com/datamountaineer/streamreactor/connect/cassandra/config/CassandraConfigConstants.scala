@@ -202,4 +202,19 @@ object CassandraConfigConstants {
 
   val DEFAULT_VALUE_SERVE_STRATEGY_DEFAULT = ""
   val DEFAULT_VALUE_SERVE_STRATEGY_DISPLAY = "Default value serve strategy"
+
+  val DC_AWARE_ENABLED = s"$CONNECTOR_PREFIX.dc.aware.enabled"
+  val DC_AWARE_ENABLED_DEFAULT = false
+  val DC_AWARE_ENABLED_DOC = "Configure DCAwareRoundRobinPolicy"
+
+  val DC_AWARE_LOCAL_DC = s"$CONNECTOR_PREFIX.local.dc"
+  val DC_AWARE_LOCAL_DC_DOC = "The name of DC as known by Cassandra to be considered local"
+
+  val DC_AWARE_USED_HOSTS_PER_REMOTE_DC = s"$CONNECTOR_PREFIX.used.hosts.per.remote.dc"
+  val DC_AWARE_USED_HOSTS_PER_REMOTE_DC_DEFAULT = 0
+  val DC_AWARE_USED_HOSTS_PER_REMOTE_DC_DOC = "The number of hosts per remote datacenter that the policy should consider"
+
+  val DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL = s"$CONNECTOR_PREFIX.allow.remote.dcs.for.local.consistency.level"
+  val DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL_DEFAULT = false
+  val DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL_DOC = "Allow return remote hosts when building query plans for having consistency level LOCAL_ONE or LOCAL_QUORUM"
 }

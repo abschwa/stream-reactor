@@ -44,7 +44,7 @@ object CassandraConnection extends StrictLogging {
       .builder()
       .addContactPoints(contactPoints.split(","): _*)
       .withPort(port)
-      .withLoadBalancingPolicy(new TokenAwarePolicy(DCAwareRoundRobinPolicy.builder().build()))
+      .withLoadBalancingPolicy(new TokenAwarePolicy(addDCAwareRoundRobinPolicy(connectorConfig)))
       .withQueryOptions(new QueryOptions().setFetchSize(fetchSize))
 
     //get authentication mode, only support NONE and USERNAME_PASSWORD for now
@@ -113,6 +113,29 @@ object CassandraConnection extends StrictLogging {
       builder.withSSL(sSLOptions.build())
     } else {
       builder
+    }
+  }
+
+  private def addDCAwareRoundRobinPolicy(connectorConfig: AbstractConfig): DCAwareRoundRobinPolicy = {
+    val dcAware = connectorConfig.getBoolean(CassandraConfigConstants.DC_AWARE_ENABLED).asInstanceOf[Boolean]
+    val localDc = connectorConfig.getString(CassandraConfigConstants.DC_AWARE_LOCAL_DC)
+    val usedHostsPerRemoteDc = connectorConfig.getInt(CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC).asInstanceOf[Int]
+    val allowRemoteDCsForLocalConsistencyLevel = connectorConfig.getBoolean(CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL).asInstanceOf[Boolean]
+    if (dcAware  && allowRemoteDCsForLocalConsistencyLevel) {
+      logger.info("Setting up DCAwareRoundRobinPolicy.")
+      return DCAwareRoundRobinPolicy.builder()
+          .withLocalDc(localDc)
+          .withUsedHostsPerRemoteDc(usedHostsPerRemoteDc)
+          .allowRemoteDCsForLocalConsistencyLevel()
+          .build()
+    } else if (dcAware) {
+      logger.info("Setting up DCAwareRoundRobinPolicy.")
+      return DCAwareRoundRobinPolicy.builder()
+        .withLocalDc(localDc)
+        .withUsedHostsPerRemoteDc(usedHostsPerRemoteDc)
+        .build()
+    } else {
+      return DCAwareRoundRobinPolicy.builder().build()
     }
   }
 }

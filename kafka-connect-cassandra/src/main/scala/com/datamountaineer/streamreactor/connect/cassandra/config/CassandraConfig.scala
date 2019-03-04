@@ -209,6 +209,49 @@ case class CassandraConfig() {
       ConfigDef.Width.LONG,
       CassandraConfigConstants.FETCH_SIZE)
 
+    .define(CassandraConfigConstants.DC_AWARE_ENABLED,
+      Type.BOOLEAN,
+      CassandraConfigConstants.DC_AWARE_ENABLED_DEFAULT,
+      Importance.LOW,
+      CassandraConfigConstants.DC_AWARE_ENABLED_DOC,
+      "Connection",
+      16,
+      ConfigDef.Width.SHORT,
+      CassandraConfigConstants.DC_AWARE_ENABLED
+    )
+
+    .define(CassandraConfigConstants.DC_AWARE_LOCAL_DC,
+      Type.STRING,
+      "",
+      Importance.LOW,
+      CassandraConfigConstants.DC_AWARE_ENABLED_DOC,
+      "Connection",
+      17,
+      ConfigDef.Width.LONG,
+      CassandraConfigConstants.DC_AWARE_ENABLED
+    )
+
+    .define(CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC,
+      Type.INT,
+      CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC_DEFAULT,
+      Importance.LOW,
+      CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC_DOC,
+      "Connection",
+      18,
+      ConfigDef.Width.SHORT,
+      CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC
+    )
+
+    .define(CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL,
+      Type.BOOLEAN,
+      CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL_DEFAULT,
+      Importance.LOW,
+      CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL_DOC,
+      "Connection",
+      19,
+      ConfigDef.Width.SHORT,
+      CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL
+    )
 }
 
 
