@@ -49,6 +49,10 @@ class TestCassandraConstants extends WordSpec with Matchers {
   val THREAD_POOL_CONFIG = "connect.cassandra.threadpool.size"
   val CONSISTENCY_LEVEL_CONFIG = "connect.cassandra.consistency.level"
   val MAPPING_COLLECTION_TO_JSON = "connect.cassandra.mapping.collection.to.json"
+  val DC_AWARE_ENABLED = "connect.cassandra.dc.aware.enabled"
+  val DC_AWARE_LOCAL_DC = "connect.cassandra.dc.aware.local.dc"
+  val DC_AWARE_USED_HOSTS_PER_REMOTE_DC = "connect.cassandra.dc.aware.used.hosts.per.remote.dc"
+  val DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL = "connect.cassandra.dc.aware.allow.remote.dcs.for.local.consistency.level"
 
   "POLL_INTERVAL should have the same key in CassandraConfigConstants" in {
     assert(POLL_INTERVAL.equals(CassandraConfigConstants.POLL_INTERVAL))
@@ -101,7 +105,7 @@ class TestCassandraConstants extends WordSpec with Matchers {
   "ALLOW_FILTERING should have the same key in CassandraConfigConstants" in {
     assert(ALLOW_FILTERING.equals(CassandraConfigConstants.ALLOW_FILTERING))
   }
-  "ASSIGNED_TABLES should have the same key in CassandraConfigConstants" in {
+  "ASSIGNED_TABLES should have the same key in CassandraCo nfigConstants" in {
     assert(ASSIGNED_TABLES.equals(CassandraConfigConstants.ASSIGNED_TABLES))
   }
   "ERROR_POLICY should have the same key in CassandraConfigConstants" in {
@@ -125,4 +129,17 @@ class TestCassandraConstants extends WordSpec with Matchers {
   "MAPPING_COLLECTION_TO_JSON should have the same key in CassandraConfigConstants" in {
     assert(MAPPING_COLLECTION_TO_JSON.equals(CassandraConfigConstants.MAPPING_COLLECTION_TO_JSON))
   }
+  "DC_AWARE_ENABLED should have the same key in CassandraConfigConstants" in {
+    assert(DC_AWARE_ENABLED.equals(CassandraConfigConstants.DC_AWARE_ENABLED))
+  }
+  "DC_AWARE_LOCAL_DC should have the same key in CassandraConfigConstants" in {
+    assert(DC_AWARE_LOCAL_DC.equals(CassandraConfigConstants.DC_AWARE_LOCAL_DC))
+  }
+  "DC_AWARE_USED_HOSTS_PER_REMOTE_DC should have the same key in CassandraConfigConstants" in {
+    assert(DC_AWARE_USED_HOSTS_PER_REMOTE_DC.equals(CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC))
+  }
+  "DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL should have the same key in CassandraConfigConstants" in {
+    assert(DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL.equals(CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL))
+  }
+
 }
