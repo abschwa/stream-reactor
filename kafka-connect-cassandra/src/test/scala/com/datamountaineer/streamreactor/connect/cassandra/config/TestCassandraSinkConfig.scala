@@ -92,4 +92,30 @@ class TestCassandraSinkConfig extends WordSpec with BeforeAndAfter with Matchers
     taskConfig.getPassword(CassandraConfigConstants.KEY_STORE_PASSWD).value shouldBe KEYSTORE_PASSWORD
     taskConfig.getString(CassandraConfigConstants.KCQL) shouldBe QUERY_ALL
   }
+
+  "A CassandraConfig should return configured for DCAware" in {
+    val props = Map(
+      CassandraConfigConstants.CONTACT_POINTS -> CONTACT_POINT,
+      CassandraConfigConstants.KEY_SPACE -> CASSANDRA_SINK_KEYSPACE,
+      CassandraConfigConstants.USERNAME -> USERNAME,
+      CassandraConfigConstants.PASSWD -> PASSWD,
+      CassandraConfigConstants.KCQL -> QUERY_ALL,
+      CassandraConfigConstants.DC_AWARE_ENABLED -> "true",
+      CassandraConfigConstants.DC_AWARE_LOCAL_DC -> DC_AWARE_LOCAL_DC,
+      CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC -> "1",
+      CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL -> "true"
+    ).asJava
+
+    val taskConfig = CassandraConfigSink(props)
+    taskConfig.getString(CassandraConfigConstants.CONTACT_POINTS) shouldBe CONTACT_POINT
+    taskConfig.getString(CassandraConfigConstants.KEY_SPACE) shouldBe CASSANDRA_SINK_KEYSPACE
+    taskConfig.getString(CassandraConfigConstants.USERNAME) shouldBe USERNAME
+    taskConfig.getPassword(CassandraConfigConstants.PASSWD).value shouldBe PASSWD
+    taskConfig.getString(CassandraConfigConstants.KCQL) shouldBe QUERY_ALL
+    taskConfig.getString(CassandraConfigConstants.CONSISTENCY_LEVEL_CONFIG) shouldBe CassandraConfigConstants.CONSISTENCY_LEVEL_DEFAULT
+    taskConfig.getBoolean(CassandraConfigConstants.DC_AWARE_ENABLED) shouldBe true
+    taskConfig.getString(CassandraConfigConstants.DC_AWARE_LOCAL_DC) shouldBe DC_AWARE_LOCAL_DC
+    taskConfig.getInt(CassandraConfigConstants.DC_AWARE_USED_HOSTS_PER_REMOTE_DC) shouldBe 1
+    taskConfig.getBoolean(CassandraConfigConstants.DC_AWARE_ALLOW_REMOTE_DCS_FOR_LOCAL_CONSISTENCY_LEVEL) shouldBe true
+  }
 }
